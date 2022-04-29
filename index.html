@@ -167,7 +167,8 @@
                 <span class="mdc-top-app-bar__title">UIC Grade Distribution App</span>
                 </section>
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-                    <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Favorite" id="love">favorite</button>
+                    <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Cookie" id="cookie">cookie</button>
+                    <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search" id="search">search</button>
                 </section>
             </div>
         </header>
@@ -327,9 +328,22 @@
             circular.determinate = false
             circular.close()
 
-            /* if they press the little heart */
-            document.getElementById("love").addEventListener("click", () => {
-                dialog.open()
+            /* if they press the search icon */
+            document.getElementById("search").addEventListener("click", () => {
+                document.querySelector(".mdc-layout-grid").removeAttribute("hidden")
+                document.querySelector(".data-screen").removeAttribute("hidden")
+                document.getElementById("info").setAttribute("hidden", "true")
+                document.getElementById("multiple-classes").style.display = "none"
+                document.querySelector(".mdc-list").setAttribute("hidden", "true")
+            })
+
+            /* if they press the cookie icon */
+            document.getElementById("cookie").addEventListener("click", () => {
+                document.querySelector(".mdc-layout-grid").setAttribute("hidden", "true")
+                document.querySelector(".data-screen").setAttribute("hidden", "true")
+                document.getElementById("info").setAttribute("hidden", "true")
+                document.getElementById("multiple-classes").style.display = "none"
+                document.querySelector(".mdc-list").setAttribute("hidden", "true")
             })
 
             /* query logic */
@@ -402,7 +416,13 @@
                                         "</span>"+
                                     "</li>"
                             }
+
+                    // something is happening - hide the search bar
+                    document.querySelector(".mdc-layout-grid").setAttribute("hidden", true)
+                    document.querySelector(".data-screen").setAttribute("hidden", true)
+
                     if (!num) { // list department courses
+                        document.querySelector(".mdc-list").removeAttribute("hidden")
                         var list = document.querySelector(".mdc-list.mdc-list--two-line")
                         list.innerHTML = ""
                         document.getElementById("multiple-classes").style.display = "block"
@@ -436,7 +456,7 @@
                             var list = document.querySelector(".mdc-list.mdc-list--two-line")
                             list.innerHTML = ""
                             document.getElementById("multiple-classes").style.display = "block"
-
+                            document.querySelector(".mdc-list").removeAttribute("hidden")
                             idx = 0
                             data[abbrev][num].forEach(clss => {
                                 list.innerHTML += createListItemHTML(clss, idx)
