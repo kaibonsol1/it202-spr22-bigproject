@@ -239,11 +239,10 @@
                     </div>
                   </div>
             </div>
-
-            <img id="kai" style="display:none;"></img>
-
             <div class="data-screen">
-
+                <div style="padding:16px;" class="mdc-card mdc-card--outlined" id="dadjoke" hidden>
+                    <li><h3 id="indadjoke"></h3></li>
+                </div>
                 <div style="padding:16px;display:none;" class="mdc-card mdc-card--outlined" id="multiple-classes">
                     <li><h3>Select one of the following classes</h3></li>
                 </div>
@@ -344,23 +343,23 @@
                 document.getElementById("info").setAttribute("hidden", "true")
                 document.getElementById("multiple-classes").style.display = "none"
                 document.querySelector(".mdc-list").setAttribute("hidden", "true")
+                document.getElementById("dadjoke").removeAttribute("hidden")
 
-                /* acquire users location */
-                navigator.geolocation.getCurrentPosition((pos) => {
-                    /* make API call to yelp */
-                    const api_endpoint = "https://api.yelp.com/v3/businesses/search?latitude=" + pos.coords.latitude + "&longitude=" + pos.coords.longitude
-                    fetch(api_endpoint, 
-                    {
-                        method: 'GET',
-                        headers: {
-                            "X-Auth-Token": "O8hXz4pq7mcD06N5-S7YllAI5RyMZQlVROwYERI2ISfnFYdMe9VBfX_SpRLACkk0Hp1G9q_ZcxfiriiIOyqBmgh9P7qnWgYaUBB3ZHvn__LLtMXaujo5dqJto1JrYnYx"
-                        }
-                    })
-                    .then(resp => resp.json())
-                    .then(json => {
-                        console.log(json)
-                    })
+                /* icanhazdadjoke */
+                fetch("https://icanhazdadjoke.com/", {
+                    headers: {
+                        Accept: "application/json"
+                    }
                 })
+                .then(resp => resp.json())
+                .then(json => {
+                    document.getElementById("indadjoke").innerHTML = "Here's a random dad joke: " + json["joke"]
+                })
+
+                // /* acquire users location */
+                // navigator.geolocation.getCurrentPosition((pos) => {
+                    
+                // })
             })
 
             /* query logic */
