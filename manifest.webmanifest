@@ -1,0 +1,14 @@
+{
+    "name": "Grade Distribution App",
+    "short_name": "grades",
+    "start_url": "./",
+    "display": "standalone",
+    "theme_color": "#ffffff",
+    "background_color":"#ffffff",
+    "icons": [
+      {
+        "src": "img.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }]
+  }

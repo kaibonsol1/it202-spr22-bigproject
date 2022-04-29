@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>UIC Grade Distributions</title>
+        <link rel="manifest" href="https://kaibonsol1.github.io/pages/mainfest.webmanifest">
         <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
         <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -334,6 +335,7 @@
                 document.getElementById("info").setAttribute("hidden", "true")
                 document.getElementById("multiple-classes").style.display = "none"
                 document.querySelector(".mdc-list").setAttribute("hidden", "true")
+                document.getElementById("dadjoke").style.display = "none"
             })
 
             /* if they press the cookie icon */
@@ -343,7 +345,7 @@
                 document.getElementById("info").setAttribute("hidden", "true")
                 document.getElementById("multiple-classes").style.display = "none"
                 document.querySelector(".mdc-list").setAttribute("hidden", "true")
-                document.getElementById("dadjoke").removeAttribute("hidden")
+                document.getElementById("dadjoke").style.display = "block"
 
                 /* icanhazdadjoke */
                 fetch("https://icanhazdadjoke.com/", {
@@ -353,13 +355,15 @@
                 })
                 .then(resp => resp.json())
                 .then(json => {
-                    document.getElementById("indadjoke").innerHTML = "Here's a random dad joke: " + json["joke"]
-                })
+                    // /* acquire users location */
+                    navigator.geolocation.getCurrentPosition((pos) => {
+                        document.getElementById("indadjoke").innerHTML = "Hello person at longitude " + parseFloat(pos.coords.longitude) + ", latitude " + parseFloat(pos.coords.latitude) + "!<br/><br/>" +
+                        "Here's a random dad joke: " + json["joke"]
+                    }).catch(err => {
+                        document.getElementById("indadjoke").innerHTML = "Here's a random dad joke: " + json["joke"]
+                    })
 
-                // /* acquire users location */
-                // navigator.geolocation.getCurrentPosition((pos) => {
-                    
-                // })
+                })
             })
 
             /* query logic */
@@ -531,6 +535,12 @@
 
 
             })
+        </script>
+                <script>
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('https://kaibonsol1.github.io/it202-spr22-bigproject/sw.js')
+            .then(function() { console.log("Service worker registered"); });
+        }
         </script>
     </body>
 </html>
